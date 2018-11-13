@@ -1,0 +1,841 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{WebScrapingResultadoEleicoes}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \subsection{Webscraping básico com Python e Jupyter
+Notebook.}\label{webscraping-buxe1sico-com-python-e-jupyter-notebook.}
+
+Nesta solução foi utilizado o Python v3.6.3 no ambiente Anaconda custom.
+Os links para as bibliotecas podem ser encontrados no final deste
+notebook.
+
+    \subsubsection{Coleta e tratamento inicial dos
+dados}\label{coleta-e-tratamento-inicial-dos-dados}
+
+\paragraph{O pacote 'urllib' é uma coleção de vários módulos para
+manipulação de
+URLs.}\label{o-pacote-urllib-uxe9-uma-coleuxe7uxe3o-de-vuxe1rios-muxf3dulos-para-manipulauxe7uxe3o-de-urls.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} urlopen:}
+        \PY{k+kn}{from} \PY{n+nn}{urllib}\PY{n+nn}{.}\PY{n+nn}{request} \PY{k}{import} \PY{n}{urlopen}
+        \PY{c+c1}{\PYZsh{} BeautifulSoup: }
+        \PY{k+kn}{from} \PY{n+nn}{bs4} \PY{k}{import} \PY{n}{BeautifulSoup}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{url} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{https://pt.wikipedia.org/wiki/Elei}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{C3}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{A7}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{C3}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{A3o\PYZus{}presidencial\PYZus{}no\PYZus{}Brasil\PYZus{}em\PYZus{}2018}\PY{l+s+s2}{\PYZdq{}}
+        \PY{c+c1}{\PYZsh{} urlopen faz o quê????}
+        \PY{n}{html} \PY{o}{=} \PY{n}{urlopen}\PY{p}{(}\PY{n}{url}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}type(html)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{soup} \PY{o}{=} \PY{n}{BeautifulSoup}\PY{p}{(}\PY{n}{html}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lxml}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}type(soup)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}title = soup.title}
+        \PY{c+c1}{\PYZsh{}print(title)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{tabelas} \PY{o}{=} \PY{n}{soup}\PY{o}{.}\PY{n}{find\PYZus{}all}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{table}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{class}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{wikitable}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{width}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{70}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}print(type(tabelas))}
+        \PY{c+c1}{\PYZsh{}print(len(tabelas))}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{rows} \PY{o}{=} \PY{n}{tabelas}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{find\PYZus{}all}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tr}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{lista\PYZus{}dados} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n}{rows}\PY{p}{:}
+            \PY{n}{row\PYZus{}td} \PY{o}{=} \PY{n}{row}\PY{o}{.}\PY{n}{find\PYZus{}all}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{td}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{n}{dado} \PY{o}{=} \PY{p}{[}\PY{n}{row}\PY{o}{.}\PY{n}{text}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)} \PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n}{row\PYZus{}td}\PY{p}{]}
+            \PY{n}{lista\PYZus{}dados}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{dado}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{lista\PYZus{}dados}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[], [], [], ['Jair Bolsonaro (PSL)', 'Hamilton Mourão (PRTB)', '49 277 010', '46,03\%', '57 797 847', '55,13\%'], ['Fernando Haddad (PT)', "Manuela d'Ávila (PCdoB)", '31 342 051', '29,28\%', '47 040 906', '44,87\%'], ['Ciro Gomes (PDT)', 'Kátia Abreu (PDT)', '13 344 371', '12,47\%'], ['Geraldo Alckmin (PSDB)', 'Ana Amélia Lemos (PP)', '5 096 350', '4,76\%'], ['João Amoêdo (NOVO)', 'Christian Lohbauer (NOVO)', '2 679 745', '2,50\%'], ['Cabo Daciolo (PATRI)', 'Suelene Balduino (PATRI)', '1 348 323', '1,26\%'], ['Henrique Meirelles (MDB)', 'Germano Rigotto (MDB)', '1 288 950', '1,20\%'], ['Marina Silva (REDE)', 'Eduardo Jorge (PV)', '1 069 578', '1,00\%'], ['Álvaro Dias (PODEMOS)', 'Paulo Rabello (PSC)', '859 601', '0,80\%'], ['Guilherme Boulos (PSOL)', 'Sônia Guajajara (PSOL)', '617 122', '0,58\%'], ['Vera Lúcia (PSTU)', 'Hertz Dias (PSTU)', '55 762', '0,05\%'], ['José Maria Eymael (DC)', 'Helvio Costa (DC)', '41 710', '0,04\%'], ['João Goulart Filho (PPL)', 'Léo Alves (PPL)', '30 176', '0,03\%'], [], ['Votos em branco', '3 106 936', '2,65\%', '2 486 593', '2,14\%'], ['Votos nulos', '7 206 205', '6,14\%', '8 608 105', '7,43\%'], ['Votos pendentes', '746', '0,01\%', '0', '0,00\%'], [], ['Abstenções', '29 941 171', '20,33\%', '31 371 704', '21,30\%'], ['Não apurado', '470', '0,01\%', '1 139', '0,01\%'], []]
+
+    \end{Verbatim}
+
+    \paragraph{Criação dos dataframes e manipulação dos
+dados}\label{criauxe7uxe3o-dos-dataframes-e-manipulauxe7uxe3o-dos-dados}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{df\PYZus{}dados\PYZus{}original} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{lista\PYZus{}dados}\PY{p}{)}
+        \PY{n}{df\PYZus{}dados\PYZus{}original}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:}                            0                          1           2  \textbackslash{}
+        0                       None                       None        None   
+        1                       None                       None        None   
+        2                       None                       None        None   
+        3       Jair Bolsonaro (PSL)     Hamilton Mourão (PRTB)  49 277 010   
+        4       Fernando Haddad (PT)    Manuela d'Ávila (PCdoB)  31 342 051   
+        5           Ciro Gomes (PDT)          Kátia Abreu (PDT)  13 344 371   
+        6     Geraldo Alckmin (PSDB)      Ana Amélia Lemos (PP)   5 096 350   
+        7         João Amoêdo (NOVO)  Christian Lohbauer (NOVO)   2 679 745   
+        8       Cabo Daciolo (PATRI)   Suelene Balduino (PATRI)   1 348 323   
+        9   Henrique Meirelles (MDB)      Germano Rigotto (MDB)   1 288 950   
+        10       Marina Silva (REDE)         Eduardo Jorge (PV)   1 069 578   
+        11     Álvaro Dias (PODEMOS)        Paulo Rabello (PSC)     859 601   
+        12   Guilherme Boulos (PSOL)     Sônia Guajajara (PSOL)     617 122   
+        13         Vera Lúcia (PSTU)          Hertz Dias (PSTU)      55 762   
+        14    José Maria Eymael (DC)          Helvio Costa (DC)      41 710   
+        15  João Goulart Filho (PPL)            Léo Alves (PPL)      30 176   
+        16                      None                       None        None   
+        17           Votos em branco                  3 106 936       2,65\%   
+        18               Votos nulos                  7 206 205       6,14\%   
+        19           Votos pendentes                        746       0,01\%   
+        
+                    3           4       5  
+        0        None        None    None  
+        1        None        None    None  
+        2        None        None    None  
+        3      46,03\%  57 797 847  55,13\%  
+        4      29,28\%  47 040 906  44,87\%  
+        5      12,47\%        None    None  
+        6       4,76\%        None    None  
+        7       2,50\%        None    None  
+        8       1,26\%        None    None  
+        9       1,20\%        None    None  
+        10      1,00\%        None    None  
+        11      0,80\%        None    None  
+        12      0,58\%        None    None  
+        13      0,05\%        None    None  
+        14      0,04\%        None    None  
+        15      0,03\%        None    None  
+        16       None        None    None  
+        17  2 486 593       2,14\%    None  
+        18  8 608 105       7,43\%    None  
+        19          0       0,00\%    None  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{}remover valores quando todos os registros no eixo x (axis=0) estiverem sem valor (how=\PYZdq{}all\PYZdq{})}
+        \PY{n}{df\PYZus{}dados\PYZus{}sem\PYZus{}missing} \PY{o}{=} \PY{n}{df\PYZus{}dados\PYZus{}original}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{all}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}remover valores quando todos os registros no eixo y (axis=1) estiverem sem valor (how=\PYZdq{}all\PYZdq{})}
+        \PY{n}{df\PYZus{}dados\PYZus{}sem\PYZus{}missing} \PY{o}{=} \PY{n}{df\PYZus{}dados\PYZus{}sem\PYZus{}missing}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{all}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{df\PYZus{}dados\PYZus{}sem\PYZus{}missing}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:}                            0                          1           2  \textbackslash{}
+         3       Jair Bolsonaro (PSL)     Hamilton Mourão (PRTB)  49 277 010   
+         4       Fernando Haddad (PT)    Manuela d'Ávila (PCdoB)  31 342 051   
+         5           Ciro Gomes (PDT)          Kátia Abreu (PDT)  13 344 371   
+         6     Geraldo Alckmin (PSDB)      Ana Amélia Lemos (PP)   5 096 350   
+         7         João Amoêdo (NOVO)  Christian Lohbauer (NOVO)   2 679 745   
+         8       Cabo Daciolo (PATRI)   Suelene Balduino (PATRI)   1 348 323   
+         9   Henrique Meirelles (MDB)      Germano Rigotto (MDB)   1 288 950   
+         10       Marina Silva (REDE)         Eduardo Jorge (PV)   1 069 578   
+         11     Álvaro Dias (PODEMOS)        Paulo Rabello (PSC)     859 601   
+         12   Guilherme Boulos (PSOL)     Sônia Guajajara (PSOL)     617 122   
+         13         Vera Lúcia (PSTU)          Hertz Dias (PSTU)      55 762   
+         14    José Maria Eymael (DC)          Helvio Costa (DC)      41 710   
+         15  João Goulart Filho (PPL)            Léo Alves (PPL)      30 176   
+         17           Votos em branco                  3 106 936       2,65\%   
+         18               Votos nulos                  7 206 205       6,14\%   
+         19           Votos pendentes                        746       0,01\%   
+         21                Abstenções                 29 941 171      20,33\%   
+         22               Não apurado                        470       0,01\%   
+         
+                      3           4       5  
+         3       46,03\%  57 797 847  55,13\%  
+         4       29,28\%  47 040 906  44,87\%  
+         5       12,47\%        None    None  
+         6        4,76\%        None    None  
+         7        2,50\%        None    None  
+         8        1,26\%        None    None  
+         9        1,20\%        None    None  
+         10       1,00\%        None    None  
+         11       0,80\%        None    None  
+         12       0,58\%        None    None  
+         13       0,05\%        None    None  
+         14       0,04\%        None    None  
+         15       0,03\%        None    None  
+         17   2 486 593       2,14\%    None  
+         18   8 608 105       7,43\%    None  
+         19           0       0,00\%    None  
+         21  31 371 704      21,30\%    None  
+         22       1 139       0,01\%    None  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{}queremos somente os candidatos}
+         \PY{n}{df\PYZus{}somente\PYZus{}candidatos} \PY{o}{=} \PY{n}{df\PYZus{}dados\PYZus{}sem\PYZus{}missing}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{df\PYZus{}somente\PYZus{}candidatos}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:}                            0                          1           2       3  \textbackslash{}
+         3       Jair Bolsonaro (PSL)     Hamilton Mourão (PRTB)  49 277 010  46,03\%   
+         4       Fernando Haddad (PT)    Manuela d'Ávila (PCdoB)  31 342 051  29,28\%   
+         5           Ciro Gomes (PDT)          Kátia Abreu (PDT)  13 344 371  12,47\%   
+         6     Geraldo Alckmin (PSDB)      Ana Amélia Lemos (PP)   5 096 350   4,76\%   
+         7         João Amoêdo (NOVO)  Christian Lohbauer (NOVO)   2 679 745   2,50\%   
+         8       Cabo Daciolo (PATRI)   Suelene Balduino (PATRI)   1 348 323   1,26\%   
+         9   Henrique Meirelles (MDB)      Germano Rigotto (MDB)   1 288 950   1,20\%   
+         10       Marina Silva (REDE)         Eduardo Jorge (PV)   1 069 578   1,00\%   
+         11     Álvaro Dias (PODEMOS)        Paulo Rabello (PSC)     859 601   0,80\%   
+         12   Guilherme Boulos (PSOL)     Sônia Guajajara (PSOL)     617 122   0,58\%   
+         13         Vera Lúcia (PSTU)          Hertz Dias (PSTU)      55 762   0,05\%   
+         14    José Maria Eymael (DC)          Helvio Costa (DC)      41 710   0,04\%   
+         15  João Goulart Filho (PPL)            Léo Alves (PPL)      30 176   0,03\%   
+         
+                      4       5  
+         3   57 797 847  55,13\%  
+         4   47 040 906  44,87\%  
+         5         None    None  
+         6         None    None  
+         7         None    None  
+         8         None    None  
+         9         None    None  
+         10        None    None  
+         11        None    None  
+         12        None    None  
+         13        None    None  
+         14        None    None  
+         15        None    None  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{}refazendo os índices}
+         \PY{n}{df\PYZus{}final} \PY{o}{=} \PY{n}{df\PYZus{}somente\PYZus{}candidatos}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{df\PYZus{}final}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:}                            0                          1           2       3  \textbackslash{}
+         0       Jair Bolsonaro (PSL)     Hamilton Mourão (PRTB)  49 277 010  46,03\%   
+         1       Fernando Haddad (PT)    Manuela d'Ávila (PCdoB)  31 342 051  29,28\%   
+         2           Ciro Gomes (PDT)          Kátia Abreu (PDT)  13 344 371  12,47\%   
+         3     Geraldo Alckmin (PSDB)      Ana Amélia Lemos (PP)   5 096 350   4,76\%   
+         4         João Amoêdo (NOVO)  Christian Lohbauer (NOVO)   2 679 745   2,50\%   
+         5       Cabo Daciolo (PATRI)   Suelene Balduino (PATRI)   1 348 323   1,26\%   
+         6   Henrique Meirelles (MDB)      Germano Rigotto (MDB)   1 288 950   1,20\%   
+         7        Marina Silva (REDE)         Eduardo Jorge (PV)   1 069 578   1,00\%   
+         8      Álvaro Dias (PODEMOS)        Paulo Rabello (PSC)     859 601   0,80\%   
+         9    Guilherme Boulos (PSOL)     Sônia Guajajara (PSOL)     617 122   0,58\%   
+         10         Vera Lúcia (PSTU)          Hertz Dias (PSTU)      55 762   0,05\%   
+         11    José Maria Eymael (DC)          Helvio Costa (DC)      41 710   0,04\%   
+         12  João Goulart Filho (PPL)            Léo Alves (PPL)      30 176   0,03\%   
+         
+                      4       5  
+         0   57 797 847  55,13\%  
+         1   47 040 906  44,87\%  
+         2         None    None  
+         3         None    None  
+         4         None    None  
+         5         None    None  
+         6         None    None  
+         7         None    None  
+         8         None    None  
+         9         None    None  
+         10        None    None  
+         11        None    None  
+         12        None    None  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{heads} \PY{o}{=} \PY{n}{tabelas}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{find\PYZus{}all}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{th}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}print(heads[:10])}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{lista\PYZus{}heads} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{head} \PY{o+ow}{in} \PY{n}{heads}\PY{p}{:}
+             \PY{n}{head\PYZus{}th} \PY{o}{=} \PY{n}{head}\PY{o}{.}\PY{n}{find}\PY{p}{(}\PY{n}{text}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}cabecalho = [head.text for head in head\PYZus{}th]}
+             \PY{n}{lista\PYZus{}heads}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{head\PYZus{}th}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{lista\PYZus{}heads}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['Candidato(a)', 'Vice', '1º turno', '2º turno', 'Votação', 'Total', 'Percentagem', 'Total', 'Percentagem', 'Não participou', 'Total de votos válidos', '107 050 673', '91,21\%', '104 838 753', '90,43\%', 'Total', '117 364 654', '79,67\%', '115 933 451', '78,70\%', 'Eleitores aptos a votar', '147 306 295', '100\%', '147 306 294', '100\%']
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{df\PYZus{}heads} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{lista\PYZus{}heads}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}df\PYZus{}heads.head(50)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{df\PYZus{}heads} \PY{o}{=} \PY{n}{df\PYZus{}heads}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{16}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{df\PYZus{}heads}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:}               0
+         0  Candidato(a)
+         1          Vice
+         2      1º turno
+         3      2º turno
+         4       Votação
+         5         Total
+         6   Percentagem
+         7         Total
+         8   Percentagem
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{}excluindo linhas}
+         \PY{n}{df\PYZus{}heads} \PY{o}{=} \PY{n}{df\PYZus{}heads}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{df\PYZus{}heads} \PY{o}{=} \PY{n}{df\PYZus{}heads}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{df\PYZus{}heads}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:}               0
+         0  Candidato(a)
+         1          Vice
+         2         Total
+         3   Percentagem
+         4         Total
+         5   Percentagem
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{}renomear linhas}
+         \PY{n}{df\PYZus{}heads}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{TotalTurnoI}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{df\PYZus{}heads}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PercentualTurnoI}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{df\PYZus{}heads}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{TotalTurnoII}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{df\PYZus{}heads}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PercentualTurnoII}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{df\PYZus{}heads}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:}                    0
+         0       Candidato(a)
+         1               Vice
+         2        TotalTurnoI
+         3   PercentualTurnoI
+         4       TotalTurnoII
+         5  PercentualTurnoII
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{}transformando linhas em colunas}
+         \PY{n}{df\PYZus{}heads} \PY{o}{=} \PY{n}{df\PYZus{}heads}\PY{o}{.}\PY{n}{T}
+         \PY{n}{df\PYZus{}heads}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:}               0     1            2                 3             4  \textbackslash{}
+         0  Candidato(a)  Vice  TotalTurnoI  PercentualTurnoI  TotalTurnoII   
+         
+                            5  
+         0  PercentualTurnoII  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{header} \PY{o}{=} \PY{n}{df\PYZus{}heads}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{}type(header)}
+         \PY{n}{df\PYZus{}completo} \PY{o}{=} \PY{n}{df\PYZus{}final}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns} \PY{o}{=} \PY{n}{header}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{df\PYZus{}completo}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:}                 Candidato(a)                       Vice TotalTurnoI  \textbackslash{}
+         0       Jair Bolsonaro (PSL)     Hamilton Mourão (PRTB)  49 277 010   
+         1       Fernando Haddad (PT)    Manuela d'Ávila (PCdoB)  31 342 051   
+         2           Ciro Gomes (PDT)          Kátia Abreu (PDT)  13 344 371   
+         3     Geraldo Alckmin (PSDB)      Ana Amélia Lemos (PP)   5 096 350   
+         4         João Amoêdo (NOVO)  Christian Lohbauer (NOVO)   2 679 745   
+         5       Cabo Daciolo (PATRI)   Suelene Balduino (PATRI)   1 348 323   
+         6   Henrique Meirelles (MDB)      Germano Rigotto (MDB)   1 288 950   
+         7        Marina Silva (REDE)         Eduardo Jorge (PV)   1 069 578   
+         8      Álvaro Dias (PODEMOS)        Paulo Rabello (PSC)     859 601   
+         9    Guilherme Boulos (PSOL)     Sônia Guajajara (PSOL)     617 122   
+         10         Vera Lúcia (PSTU)          Hertz Dias (PSTU)      55 762   
+         11    José Maria Eymael (DC)          Helvio Costa (DC)      41 710   
+         12  João Goulart Filho (PPL)            Léo Alves (PPL)      30 176   
+         
+            PercentualTurnoI TotalTurnoII PercentualTurnoII  
+         0            46,03\%   57 797 847            55,13\%  
+         1            29,28\%   47 040 906            44,87\%  
+         2            12,47\%         None              None  
+         3             4,76\%         None              None  
+         4             2,50\%         None              None  
+         5             1,26\%         None              None  
+         6             1,20\%         None              None  
+         7             1,00\%         None              None  
+         8             0,80\%         None              None  
+         9             0,58\%         None              None  
+         10            0,05\%         None              None  
+         11            0,04\%         None              None  
+         12            0,03\%         None              None  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{df\PYZus{}completo}\PY{o}{.}\PY{n}{dtypes}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:} Candidato(a)         object
+         Vice                 object
+         TotalTurnoI          object
+         PercentualTurnoI     object
+         TotalTurnoII         object
+         PercentualTurnoII    object
+         dtype: object
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{}convertendo votação para número, eliminando os espaços na string para evitar erro na conversão}
+         \PY{n}{df\PYZus{}completo}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TotalTurnoI}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}completo}\PY{o}{.}\PY{n}{TotalTurnoI}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{float}\PY{p}{)}
+         \PY{n}{df\PYZus{}completo}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TotalTurnoII}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}completo}\PY{o}{.}\PY{n}{TotalTurnoII}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{float}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}converter percentuais para valor}
+         \PY{c+c1}{\PYZsh{}converter valores NaN para 0}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{df\PYZus{}completo}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PercentualTurnoI}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}completo}\PY{o}{.}\PY{n}{PercentualTurnoI}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{df\PYZus{}completo}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PercentualTurnoI}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}completo}\PY{o}{.}\PY{n}{PercentualTurnoI}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{float}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{df\PYZus{}completo}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PercentualTurnoII}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}completo}\PY{o}{.}\PY{n}{PercentualTurnoII}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{df\PYZus{}completo}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PercentualTurnoII}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}completo}\PY{o}{.}\PY{n}{PercentualTurnoII}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{float}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{df\PYZus{}completo}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}42}]:}                 Candidato(a)                       Vice  TotalTurnoI  \textbackslash{}
+         0       Jair Bolsonaro (PSL)     Hamilton Mourão (PRTB)   49277010.0   
+         1       Fernando Haddad (PT)    Manuela d'Ávila (PCdoB)   31342051.0   
+         2           Ciro Gomes (PDT)          Kátia Abreu (PDT)   13344371.0   
+         3     Geraldo Alckmin (PSDB)      Ana Amélia Lemos (PP)    5096350.0   
+         4         João Amoêdo (NOVO)  Christian Lohbauer (NOVO)    2679745.0   
+         5       Cabo Daciolo (PATRI)   Suelene Balduino (PATRI)    1348323.0   
+         6   Henrique Meirelles (MDB)      Germano Rigotto (MDB)    1288950.0   
+         7        Marina Silva (REDE)         Eduardo Jorge (PV)    1069578.0   
+         8      Álvaro Dias (PODEMOS)        Paulo Rabello (PSC)     859601.0   
+         9    Guilherme Boulos (PSOL)     Sônia Guajajara (PSOL)     617122.0   
+         10         Vera Lúcia (PSTU)          Hertz Dias (PSTU)      55762.0   
+         11    José Maria Eymael (DC)          Helvio Costa (DC)      41710.0   
+         12  João Goulart Filho (PPL)            Léo Alves (PPL)      30176.0   
+         
+             PercentualTurnoI  TotalTurnoII  PercentualTurnoII  
+         0              46.03    57797847.0              55.13  
+         1              29.28    47040906.0              44.87  
+         2              12.47           NaN                NaN  
+         3               4.76           NaN                NaN  
+         4               2.50           NaN                NaN  
+         5               1.26           NaN                NaN  
+         6               1.20           NaN                NaN  
+         7               1.00           NaN                NaN  
+         8               0.80           NaN                NaN  
+         9               0.58           NaN                NaN  
+         10              0.05           NaN                NaN  
+         11              0.04           NaN                NaN  
+         12              0.03           NaN                NaN  
+\end{Verbatim}
+            
+    \paragraph{Análise dos dados e
+visualização}\label{anuxe1lise-dos-dados-e-visualizauxe7uxe3o}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+         \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+         \PY{k+kn}{from} \PY{n+nn}{pylab} \PY{k}{import} \PY{n}{rcParams}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{df\PYZus{}completo}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{n}{include}\PY{o}{=}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{number}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:}         TotalTurnoI  TotalTurnoII
+         count  1.300000e+01  2.000000e+00
+         mean   8.234673e+06  5.241938e+07
+         std    1.512722e+07  7.606306e+06
+         min    3.017600e+04  4.704091e+07
+         25\%    6.171220e+05  4.973014e+07
+         50\%    1.288950e+06  5.241938e+07
+         75\%    5.096350e+06  5.510861e+07
+         max    4.927701e+07  5.779785e+07
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.figsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{3}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{df\PYZus{}completo}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bar}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Candidato(a)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{TotalTurnoI}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x2cd16499588>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_38_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Links}\label{links}
+
+\begin{itemize}
+\tightlist
+\item
+  https://docs.python.org/3.6/library/urllib.html
+\item
+  https://docs.python.org/3.6/library/urllib.request.html
+\end{itemize}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
